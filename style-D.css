@@ -1,0 +1,522 @@
+/* =============== GLOBAL STYLES =============== */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  background-color: black;
+  color: white;
+  overflow-x: hidden;
+}
+
+.wrapper {
+  width: 95%;
+  padding: 0 1rem;
+  background-color: #0d0d0d;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+p {
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* =============== HEADER SECTION =============== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 2rem;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* =============== BLOCK 1 HERO SECTION =============== */
+.hero-wrapper {
+  width: 100%;
+}
+
+.dashboard-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 2rem 0;
+  align-items: center;
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.dashboard-hero.with-candles {
+  position: relative;
+  background: linear-gradient(to bottom, #0d0d0d 0%, #1b1b1b 100%);
+  overflow: hidden;
+}
+
+.dashboard-hero.with-candles::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./img/Dashboard-hero-bg.png'); /* your candlestick image */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.08;  /* subtle visibility */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dashboard-hero .hero-text,
+.dashboard-hero .hero-box {
+  position: relative;
+  z-index: 1; /* Ensures content sits above background */
+}
+
+
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 90%;
+  padding: 0 1rem;
+}
+
+.hero-text h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem 0;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #ccc;
+}
+
+.hero-box {
+  position: relative;
+  background: linear-gradient(145deg, #1b1b1b, #007A33);
+  border: 1px solid #444;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: white;
+  width: 100%;
+  height: auto;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.6rem;
+  box-shadow: 0 0 10px #00000033;
+}
+
+.hero-box h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-balance {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #d4a855;
+}
+
+.hero-wallet {
+  background-color: #1f1f1f;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-top: 0.4rem;
+}
+
+.eth-icon {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  filter: brightness(1.2);
+}
+
+/* =============== VAULTS SCROLL SECTION =============== */
+.vaults-section {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.vaults-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+.vaults-wrapper {
+  position: relative;
+  overflow-x: hidden;
+  padding: 0 1rem;
+}
+
+.vaults-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+
+/* =============== VAULTS SCROLL SECTION =============== */
+.vault-card {
+  flex: 0 0 90%;
+  height: 200px;
+  scroll-snap-align: start;
+  background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
+  border-radius: 1.2rem;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.3rem; /* 👈 reduced spacing between elements */
+}
+
+/* Badge */
+.vault-amount {
+  background-color: #e7bc60; 
+  color: #1a1a1a;
+  padding: 0 1rem;
+  border: 0.1px solid #e7bc60;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.7rem;
+  margin-bottom: 3rem;
+  
+}
+
+/* Title */
+.vault-purpose {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f5f5f5;
+  margin-bottom: 1rem;
+}
+
+/* Timer */
+.vault-timer {
+  font-size: 1.8rem;
+  color: #bbb;
+  margin-bottom: 1.3rem;
+}
+
+/* View Button */
+.vault-view {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 0.4rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.3rem;
+  
+}
+
+.vault-view:hover {
+  background-color: #e7bc60;
+}
+
+
+.scroll-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  background: white;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 999px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1;
+}
+.scroll-arrow {
+  transition: opacity 0.3s ease;
+}
+
+.scroll-arrow[style*="display: none"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* === BLOCK 3: TRANSACTION HISTORY TABLE === */
+.history-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.history-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Table Container */
+.history-table-container {
+  max-width: 100%;
+  overflow-x: auto;
+  background-color: #1f1f1f;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin: 0 auto;
+  box-shadow: 0 0 10px #00000022;
+}
+
+/* Table Styling */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.history-table th,
+.history-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.history-table th {
+  color: #ccc;
+  font-weight: 600;
+  border-bottom: 1px solid #333;
+}
+
+.history-table td {
+  color: #eee;
+  border-bottom: 1px solid #222;
+}
+
+.history-table a {
+  color: #9f9fff;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+/* View All Button */
+.history-view-btn {
+  margin-top: 1.5rem;
+  background-color: white;
+  color: black;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.8rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+/* =============== FOOTER =============== */
+footer {
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+footer a {
+  color: #007A33;
+  text-decoration: none;
+}
+
+/* =============== DESKTOP MEDIA QUERY =============== */
+@media (min-width: 1024px) {
+
+
+.logo img {
+  height: 4rem;
+}
+
+.logo h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    border-left: 2px solid #1f1f1f;
+    border-right: 2px solid #1f1f1f;
+  }
+
+  .hero-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .dashboard-hero {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin: 2rem 0;
+    gap: 2rem;
+  }
+
+  .hero-text {
+    display: flex;
+    flex: 1;
+    max-width: 50%;
+    align-items: flex-start;
+    text-align: left;
+    padding: 0;
+  }
+  .hero-text h1 {
+    font-size: 5rem;
+  }
+  .hero-text p {
+    font-size: 1.6rem;
+  }
+
+  .hero-box {
+    flex: 1;
+    max-width: 400px;
+    padding: 2rem;
+  }
+
+  .eth-icon {
+    width: 100px;
+    height: 100px;
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .hero-box h3 {
+    font-size: 3rem;
+  }
+
+  .hero-balance {
+    font-size: 5rem;
+  }
+
+  .hero-wallet {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+  }
+
+  .vaults-scroll {
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; 
+  }
+
+  .vaults-scroll::-webkit-scrollbar {
+    display: none;               /* Chrome, Safari */
+  }
+
+ .vault-card {
+    flex: 0 0 calc((100% - 2rem) / 3); /* Show exactly 3 per row */
+    height: 200px; /* 🔼 Increased height on desktop */
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .vault-amount {
+    font-size: 2.2rem;
+  }
+
+  .vault-purpose {
+    font-size: 2rem;
+  }
+
+  .vault-timer {
+    font-size: 1.7rem;
+  }
+
+  .vault-view {
+    font-size: 1.5rem;
+    padding: 0.4rem 1.2rem;
+  }
+  .vaults-section h2 {
+  font-size: 2rem;
+  }
+
+
+.history-section h2 {
+    font-size: 2rem;
+}
+.history-table th,
+.history-table td{
+    font-size: 1.2rem;
+}
+
+footer {
+    font-size: 1.5rem;
+}
+
+
+  
+}

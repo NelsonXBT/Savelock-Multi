@@ -1,0 +1,192 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-D.css" />
+    <link rel="icon" href="./img/savelock-favicon.png">
+    <title>Savelock: Crypto Savings App</title>
+</head>
+<body>
+<div class="page-container">
+ <main class="wrapper">
+        <header>
+            <div class="navbar">
+                <div class="logo">
+                <a href="index.html"><img src="./img/savelock-logo.png" alt="CryptoTracker logo" /></a>
+                <a href="index.html"><h1>Savelock</h1></a>
+                </div>
+            </div>
+        </header>
+
+
+
+            <!-- === Total Balance card section === -->
+        <section class="dashboard-hero with-candles">
+        <div class="hero-wrapper">
+        <section class="dashboard-hero">
+            <!-- LEFT TEXT BLOCK -->
+            <div class="hero-text">
+                <h1>Save in Web3</h1>
+                <p>Lock your funds and grow your savings with secure, smart contract-powered vaults designed for crypto users.</p>
+            </div>
+
+            <!-- RIGHT BOX -->
+            <div class="hero-box">
+            <h3>Welcome Back</h3>
+            <div class="hero-total">My Total Saving:</div>
+            <div class="hero-balance">1.5 ETH</div>
+            <img src="./img/eth-log.svg" alt="ETH" class="eth-icon" />
+            <div class="hero-wallet">0xbC062xxxxx060</div>
+            </div>
+
+            </section>
+            </div>
+            </section>
+
+
+                <!-- === My Savings Card Sections === -->
+
+                <section class="vaults-section">
+                <h2>My Savings</h2>
+                <div class="vaults-wrapper">
+                    <div class="vaults-scroll" id="vaultScroll">
+                    <!-- Vault Card Example -->
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Trading Capital Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Trading Capital Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Trading Capital Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                   
+                    <!-- Repeat cards -->
+                    </div>
+                    <button class="scroll-arrow" id="scrollArrow">→</button>
+                </div>
+                </section>
+
+
+
+                <!-- === History Sections === -->
+
+                <section class="history-section">
+                <h2>Transaction History</h2>
+
+                <div class="history-table-container">
+                    <table class="history-table">
+                    <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Tx Hash</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic entries will populate here -->
+                        <tr class="history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                        <!-- ...more rows -->
+                    </tbody>
+                    </table>
+                </div>
+
+                <button class="history-view-btn">View All</button>
+                </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+        <footer>
+            <div><p>© Savelock 2025 | All rights reserved | Built by <a href="https://x.com/nelson_xbt" target="_blank">NelsonXBT</a></p></div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
