@@ -371,6 +371,526 @@ p {
 
 
 
+/* === Savings (Vault) Page section === */
+
+.vault-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.vault-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem;
+  padding-left: 1rem;
+}
+
+.back-btn {
+  background-color: #1f1f1f;
+  color: white;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.vault-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.vault-balance-card {
+  background-color: #d4a855;
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  text-align: center;
+  margin: 1rem auto;              /* ✅ center horizontally */
+  color: black;
+  width: 100%;                    /* ✅ fill full width */
+  max-width: 100%;                /* ✅ prevents narrowing */
+  box-sizing: border-box;         /* ✅ includes padding in width */
+}
+
+.balance-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.balance-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.progress-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 250px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: black;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+.progress-percent {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.vault-action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 1rem;
+  flex-wrap: wrap;
+}
+
+.top-up-btn,
+.withdraw-btn {
+  flex: 1 1 45%;
+  padding: 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+/* Top Up = Filled Green */
+.top-up-btn {
+  background-color: #007f36; /* emerald green */
+  color: white;
+}
+
+/* Withdraw = Outlined Green */
+.withdraw-btn {
+  background-color: black;
+  color: white;
+  border: 2px solid #007f36;
+}
+
+/* Optional Hover Effects */
+.top-up-btn:hover {
+  background-color: #00994a;
+}
+
+.withdraw-btn:hover {
+  background-color: #0c0c0c;
+}
+
+
+.vault-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.vault-info-box {
+  background-color: #1f1f1f;
+  padding: 1rem;
+  border-radius: 12px;
+  color: white;
+}
+
+.vault-info-box .label {
+  display: block;
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 0.4rem;
+}
+
+.vault-info-box .value {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+
+.vault-history-section {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.vault-history-section h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+.vault-history-table-container {
+  background-color: #1c1c1c;
+  padding: 1rem;
+  border-radius: 1rem;
+  overflow-x: auto;
+}
+
+.vault-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.vault-history-table th,
+.vault-history-table td {
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #333;
+  color: #fff;
+}
+
+.vault-history-table a {
+  color: #9f9fff;
+  text-decoration: none;
+}
+
+.vault-history-view-btn {
+  margin-top: 1rem;
+  background: white;
+  color: black;
+  font-weight: 600;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+
+    /* === Savings Plan Selection Page ===  */
+
+   .savings-hero {
+  text-align: center;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 800px;
+}
+
+.savings-back-wrapper {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.back-btn {
+  background-color: #1f1f1f;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.savings-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #d4a855;
+  margin: 0 0 1rem;
+}
+
+.savings-subtext {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 0.3rem;
+}
+
+.savings-description {
+  font-size: 0.95rem;
+  color: #aaa;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.savings-plan-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.plan-subheading {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.plan-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.plan-card {
+  background-color: #1f1f1f;
+  border-radius: 1.2rem;
+  padding: 2rem 1.5rem 1.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 0 10px #00000022;
+}
+
+.plan-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+}
+
+.plan-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.plan-description {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.plan-btn {
+  background-color: #007f36;
+  color: white;
+  font-weight: 700;
+  padding: 0.5rem 1.8rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.plan-btn:hover {
+  background-color: #00994a;
+}
+
+
+      /* === Savings Plan From Page === */
+
+
+      .savings-form {
+  padding: 2rem 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.savings-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.back-btn {
+  background-color: #1f1f1f;
+  color: white;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.form-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #d4a855;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.savings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: row; /* ⬅️ horizontal layout */
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.form-group label {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  width: 40%;            /* take up 40% of space */
+  text-align: left;
+  margin-bottom: 0;      /* remove vertical spacing */
+}
+
+.form-group input,
+.form-group select {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  background-color: #1c1c1c;
+  color: white;
+  border: 1px solid #d4a855;
+  border-radius: 12px;
+  outline: none;
+}
+
+/* Keep placeholder styling */
+.form-group input::placeholder {
+  color: #ccc;
+}
+
+/* Dropdown arrow */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='white' viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+}
+
+.form-submit {
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.start-saving-btn {
+  background-color: #d4a855;
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+}
+
+.start-saving-btn:hover {
+  background-color: #c39b3d;
+}
+
+
+          /* ====  Deposit Form Section ==== */
+
+
+.deposit-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.deposit-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  background-color: #1f1f1f;
+  color: white;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.vault-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ddd;
+  margin: 0;
+  text-align: center;
+}
+
+.deposit-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.deposit-input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  background-color: #1c1c1c;
+  color: white;
+  border: 2px solid #d4a855;
+  border-radius: 12px;
+  outline: none;
+}
+
+.deposit-input::placeholder {
+  color: #888;
+  font-style: italic;
+}
+
+.deposit-btn {
+  width: 100%;
+  padding: 1rem 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  background-color: #007f36;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.deposit-btn:hover {
+  background-color: #00994a;
+}
+
+
+
+
+
+
+
 
 
 /* =============== FOOTER =============== */
@@ -389,8 +909,17 @@ footer a {
   text-decoration: none;
 }
 
+
+
+
+
+
+
+
+
+
 /* =============== DESKTOP MEDIA QUERY =============== */
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
 
 
 .logo img {
@@ -518,5 +1047,194 @@ footer {
 }
 
 
+
+ .vault-header {
+    max-width: 600px;           /* 👈 Match .vault-balance-card width */
+    margin: 0 auto 2rem auto;   /* Center it horizontally */
+    justify-content: flex-start;
+    padding-left: 0;            /* Remove mobile indent */
+  }
+
+  .vault-title {
+    font-size: 1.8rem;
+    margin: 0;
+  }
+
+  .back-btn {
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
+  }
+
+
+.vault-balance-card {
+    max-width: 600px;
+    margin: 1.5rem auto;
+  }
+ .balance-label {
+  font-size: 1.3rem;
+ }
+  .balance-amount {
+    font-size: 4rem;
+  }
+
+  .progress-bar {
+    max-width: 300px;
+  }
+
+
+ .vault-action-buttons {
+    max-width: 600px;
+    margin: 2rem auto;
+    flex-wrap: nowrap;
+  }
+
+  .top-up-btn,
+  .withdraw-btn {
+    flex: 1;
+  }
+
+
+ .vault-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 620px; /* Match Top Up section width */
+    margin: 0 auto 2rem; /* Center on page */
+  }
+
+ .vault-history-section {
+    max-width: 630px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .vault-history-table-container {
+    border-left: 1px solid #1a1a1a;
+    border-right: 1px solid #1a1a1a;
+    border-radius: 1rem;
+  }
+
+
+
+
+
+
+  .savings-hero {
+    padding: 0 2rem;
+    margin-top: 3rem;
+  }
+
+  .back-btn {
+    font-size: 1.1rem;
+    padding: 0.7rem 1.6rem;
+  }
+
+  .savings-title {
+    font-size: 3rem;
+  }
+
+  .savings-subtext {
+    font-size: 1.3rem;
+  }
+
+  .savings-description {
+    font-size: 1.1rem;
+    max-width: 750px;
+  }
+
+
+.plan-card-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .plan-card {
+    max-width: 300px;
+    padding: 2rem;
+  }
+
+  .plan-title {
+    font-size: 1.5rem;
+  }
+
+  .plan-description {
+    font-size: 1.1rem;
+  }
+
+  .plan-btn {
+    font-size: 1.1rem;
+    padding: 0.6rem 2.2rem;
+  }
+
+
+
+ .savings-header {
+    flex-direction: column; /* stack vertically */
+    align-items: flex-start;
+  }
+
+   .form-title {
+    font-size: 2.2rem;
+  }
+
+  .savings-form {
+    max-width: 500px;
+    margin: 2rem auto;
+    gap: 2rem;
+  }
+
+  .form-group label {
+    font-size: 1.8rem;
+    width: 35%;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 1.1rem;
+  }
+
+  .savings-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    gap: 2rem;
+  }
+
+  .form-submit {
+    text-align: center;
+  }
+
+  .start-saving-btn {
+    font-size: 2rem;
+    padding: 1rem 2.5rem;
+  }
+
+
+
+ .deposit-header {
+    flex-direction: column; /* 💡 Keep vertical layout */
+    align-items: flex-start; /* Align left */
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .vault-title {
+    font-size: 2rem;
+  }
+
+  .deposit-form {
+    margin-top: 3rem;
+  }
+
+  .deposit-input {
+    font-size: 1.3rem;
+  }
+
+  .deposit-btn {
+    font-size: 1.5rem;
+  }
+
+
   
+
+
 }

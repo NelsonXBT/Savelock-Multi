@@ -5,7 +5,7 @@ const scrollArrow = document.getElementById("scrollArrow");
 const scrollContainer = document.getElementById("vaultScroll");
 
 function checkScrollArrowVisibility() {
-  const cardCount = scrollContainer.querySelectorAll(".vault-card").length;
+  const cardCount = scrollContainer?.querySelectorAll(".vault-card").length || 0;
 
   if (window.innerWidth < 768 && cardCount > 1) {
     scrollArrow.style.display = "block";
@@ -16,7 +16,7 @@ function checkScrollArrowVisibility() {
   }
 }
 
-scrollArrow.addEventListener("click", () => {
+scrollArrow?.addEventListener("click", () => {
   scrollContainer.scrollBy({ left: 300, behavior: "smooth" });
 });
 
@@ -24,65 +24,50 @@ window.addEventListener("load", checkScrollArrowVisibility);
 window.addEventListener("resize", checkScrollArrowVisibility);
 
 // ====================
-// History Table Expand Logic
+// Expand / Collapse Tables (Both Main + Vault History)
 // ====================
 document.addEventListener("DOMContentLoaded", () => {
-  const rows = document.querySelectorAll(".history-row");
-  const viewBtn = document.querySelector(".history-view-btn");
-  const maxVisible = 5;
+  // MAIN DASHBOARD TABLE
+  const rowsMain = document.querySelectorAll(".history-row");
+  const viewBtnMain = document.querySelector(".history-view-btn");
+  const maxMain = 5;
 
-  if (!rows || !viewBtn) return;
-
-  // Hide rows beyond the first 5
-  rows.forEach((row, index) => {
-    if (index >= maxVisible) {
-      row.style.display = "none";
-    }
-  });
-
-  viewBtn.addEventListener("click", () => {
-    const isCollapsed = viewBtn.dataset.expanded !== "true";
-
-    rows.forEach((row, index) => {
-      if (isCollapsed) {
-        row.style.display = "table-row";
-      } else {
-        if (index >= maxVisible) {
-          row.style.display = "none";
-        }
-      }
+  if (rowsMain.length && viewBtnMain) {
+    rowsMain.forEach((row, index) => {
+      if (index >= maxMain) row.style.display = "none";
     });
 
-    viewBtn.textContent = isCollapsed ? "View Less" : "View All";
-    viewBtn.dataset.expanded = isCollapsed;
-  });
+    viewBtnMain.addEventListener("click", () => {
+      const isCollapsed = viewBtnMain.dataset.expanded !== "true";
 
-  // ====================
-  // OPTIONAL: Simulate dynamic rows (uncomment and replace with contract fetch later)
-  // ====================
-  /*
-  const tbody = document.querySelector(".history-table tbody");
+      rowsMain.forEach((row, index) => {
+        row.style.display = isCollapsed ? "table-row" : index < maxMain ? "table-row" : "none";
+      });
 
-  const txs = [
-    { type: "Deposit", amount: 0.4, date: "2025-07-18", hash: "0xabc1234567abcdef" },
-    { type: "Withdraw", amount: 0.2, date: "2025-07-15", hash: "0xdef9876543cdefab" }
-  ];
+      viewBtnMain.textContent = isCollapsed ? "View Less" : "View All";
+      viewBtnMain.dataset.expanded = isCollapsed;
+    });
+  }
 
-  txs.forEach(tx => {
-    const row = document.createElement("tr");
-    row.classList.add("history-row");
+  // VAULT PAGE TABLE
+  const rowsVault = document.querySelectorAll(".vault-history-row");
+  const viewBtnVault = document.querySelector(".vault-history-view-btn");
+  const maxVault = 5;
 
-    row.innerHTML = `
-      <td>${tx.type}</td>
-      <td>${tx.amount} ETH</td>
-      <td>${tx.date}</td>
-      <td><a href="https://etherscan.io/tx/${tx.hash}" target="_blank">${tx.hash.slice(0, 6)}...${tx.hash.slice(-4)}</a></td>
-    `;
+  if (rowsVault.length && viewBtnVault) {
+    rowsVault.forEach((row, index) => {
+      if (index >= maxVault) row.style.display = "none";
+    });
 
-    tbody.appendChild(row);
-  });
+    viewBtnVault.addEventListener("click", () => {
+      const isCollapsed = viewBtnVault.dataset.expanded !== "true";
 
-  // Rerun visibility logic for new rows
-  checkScrollArrowVisibility();
-  */
+      rowsVault.forEach((row, index) => {
+        row.style.display = isCollapsed ? "table-row" : index < maxVault ? "table-row" : "none";
+      });
+
+      viewBtnVault.textContent = isCollapsed ? "View Less" : "View All";
+      viewBtnVault.dataset.expanded = isCollapsed;
+    });
+  }
 });
