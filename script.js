@@ -1,5 +1,5 @@
 // ====================
-// Scroll Arrow for Vaults
+// Scroll Arrow for Vaults (Fix: Loop after last card fully visible)
 // ====================
 const scrollArrow = document.getElementById("scrollArrow");
 const scrollContainer = document.getElementById("vaultScroll");
@@ -17,11 +17,23 @@ function checkScrollArrowVisibility() {
 }
 
 scrollArrow?.addEventListener("click", () => {
-  scrollContainer.scrollBy({ left: 300, behavior: "smooth" });
+  const scrollStep = scrollContainer.clientWidth; // scroll one full viewport of cards
+  const currentScroll = scrollContainer.scrollLeft;
+  const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+  const nearEnd = Math.abs(currentScroll - maxScroll) < 10; // buffer to account for rounding
+
+  if (nearEnd) {
+    scrollContainer.scrollTo({ left: 0, behavior: "smooth" }); // loop to start
+  } else {
+    scrollContainer.scrollBy({ left: scrollStep, behavior: "smooth" });
+  }
 });
 
 window.addEventListener("load", checkScrollArrowVisibility);
 window.addEventListener("resize", checkScrollArrowVisibility);
+
+
 
 // ====================
 // Expand / Collapse Tables (Both Main + Vault History)
