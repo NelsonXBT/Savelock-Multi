@@ -53,6 +53,26 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   if (!window.ethereum) return showSection("walletConnect");
 
+  provider = new ethers.providers.Web3Provider(window.ethereum);
+  const accounts = await provider.listAccounts();
+  if (!accounts.length) return showSection("walletConnect");
+
+  signer = provider.getSigner();
+  userAddress = await signer.getAddress();
+  contract = new ethers.Contract(contractAddress, abi, signer);
+
+  if (vaultParam) {
+    showSection("VaultPage");
+    loadVault(vaultParam);
+  } else if (savingParam) {
+    showSection("savingPlan");
+  } else {
+    showSection("dashboard");
+    loadAllVaults();
+  }
+});
+
+document.querySelector(".connect-wallet-btn")?.addEventListener("click", async () => {
   try {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     const network = await provider.getNetwork();
@@ -69,6 +89,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const vaultParam = urlParams.get("vault");
+    const savingParam = urlParams.get("saving");
+
     if (vaultParam) {
       showSection("VaultPage");
       loadVault(vaultParam);
@@ -79,17 +103,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       loadAllVaults();
     }
   } catch (err) {
-    console.error("Wallet connection failed:", err);
-    showSection("walletConnect");
-  }
-});
-
-document.querySelector(".connect-wallet-btn")?.addEventListener("click", async () => {
-  try {
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    window.location.reload();
-  } catch (err) {
     alert("Wallet connection failed");
+    console.error(err);
   }
 });
 
