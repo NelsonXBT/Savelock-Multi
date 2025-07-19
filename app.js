@@ -255,16 +255,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ✅ Flow 2 — Plan → Form
-planButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-
-    console.log("✅ plan-btn clicked");
-    console.log("📦 savingsPlanForm:", savingsPlanForm);
-
+planCardContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("plan-btn")) {
+    console.log("✅ plan-btn clicked via delegation");
     savingPlanSection.style.display = "none";
     savingsPlanForm.style.display = "block";
-  });
+  }
 });
+
 
 startSavingBtn.addEventListener("click", async (e) => {
   e.preventDefault();
