@@ -204,72 +204,71 @@ function showStatus(message, duration = 4000) {
 }
 
 // ✅ Wallet Connect Button Click Handler
-connectBtn.addEventListener("click", async () => {
-  try {
-    if (!window.ethereum) {
-      alert("Please use a browser with MetaMask or another Web3 wallet.");
-      return;
-    }
+window.addEventListener("load", () => {
+  const connectBtn = document.querySelector(".connect-wallet-btn");
+  const walletConnectSection = document.getElementById("walletConnect");
+  const dashboardSection = document.getElementById("dashboard");
+  const savingPlanSection = document.getElementById("savingPlan");
 
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    const currentNetwork = await provider.getNetwork();
-
-    // 🔁 If on wrong network, try to switch
-    if (currentNetwork.chainId !== chainId) {
-      try {
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: "0x" + chainId.toString(16) }]
-        });
-        showStatus("✅ Switched to Arbitrum Sepolia. Please click Connect again.");
+  connectBtn.addEventListener("click", async () => {
+    try {
+      if (!window.ethereum) {
+        alert("Please use a browser with MetaMask or another Web3 wallet.");
         return;
-      } catch (err) {
-        if (err.code === 4902) {
+      }
+
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+      const currentNetwork = await provider.getNetwork();
+
+      if (currentNetwork.chainId !== chainId) {
+        try {
           await window.ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [{
-              chainId: "0x" + chainId.toString(16),
-              chainName: "Arbitrum Sepolia",
-              rpcUrls: [rpcUrl],
-              nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
-              blockExplorerUrls: ["https://sepolia.arbiscan.io"]
-            }]
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x" + chainId.toString(16) }]
           });
-          showStatus("✅ Network added. Please click Connect again.");
+          showStatus("✅ Switched to Arbitrum Sepolia. Please click Connect again.");
           return;
-        } else {
-          alert("Please switch to the Arbitrum Sepolia network.");
-          return;
+        } catch (err) {
+          if (err.code === 4902) {
+            await window.ethereum.request({
+              method: "wallet_addEthereumChain",
+              params: [{
+                chainId: "0x" + chainId.toString(16),
+                chainName: "Arbitrum Sepolia",
+                rpcUrls: [rpcUrl],
+                nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+                blockExplorerUrls: ["https://sepolia.arbiscan.io"]
+              }]
+            });
+            showStatus("✅ Network added. Please click Connect again.");
+            return;
+          } else {
+            alert("Please switch to the Arbitrum Sepolia network.");
+            return;
+          }
         }
       }
+
+      await provider.send("eth_requestAccounts", []);
+      signer = provider.getSigner();
+      userAddress = await signer.getAddress();
+      contract = new ethers.Contract(contractAddress, abi, signer);
+
+      userWallet.textContent = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
+      walletConnectSection.style.display = "none";
+
+      const userDurations = await contract.getUserVaultDurations(userAddress);
+      if (userDurations.length > 0) {
+        dashboardSection.style.display = "block";
+        showStatus("✅ Welcome back! Vault(s) found.");
+      } else {
+        savingPlanSection.style.display = "block";
+        showStatus("🚀 Start your first crypto savings plan.");
+      }
+
+    } catch (err) {
+      console.error("❌ Wallet connection failed:", err);
+      showStatus("❌ Wallet connection failed.");
     }
-
-    // 🔐 Connect wallet
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-    userAddress = await signer.getAddress();
-    contract = new ethers.Contract(contractAddress, abi, signer);
-
-    // Show address in dashboard header
-    userWallet.textContent = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
-
-    // Hide wallet connect screen
-    walletConnectSection.style.display = "none";
-
-    // 🔍 Check for existing vaults
-    const userDurations = await contract.getUserVaultDurations(userAddress);
-    if (userDurations.length > 0) {
-      // ✅ User has vaults – go to dashboard
-      dashboardSection.style.display = "block";
-      showStatus("✅ Welcome back! Vault(s) found.");
-    } else {
-      // ❌ No vault yet – go to savings plan flow
-      savingPlanSection.style.display = "block";
-      showStatus("🚀 Start your first crypto savings plan.");
-    }
-
-  } catch (err) {
-    console.error("❌ Wallet connection failed:", err);
-    showStatus("❌ Wallet connection failed.");
-  }
+  });
 });
