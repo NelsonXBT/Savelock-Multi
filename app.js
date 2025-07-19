@@ -1,148 +1,275 @@
-// === Savelock App.js ===
+document.addEventListener("DOMContentLoaded", () => {
+  // 🔗 Contract Configuration
+  const contractAddress = "0xF020f362CDe86004d94C832596415E082A77e203";
+  const rpcUrl = "https://sepolia-rollup.arbitrum.io/rpc";
+  const chainId = 421614;
 
-let provider, signer, contract, userAddress;
+  // 🔐 Web3 Global Variables
+  let provider, signer, contract, userAddress;
+  let activeVaultDuration = null;
 
-// === Config ===
-const contractAddress = "0x318cAD266a35692f49d0e7B4E31C799c2cfc9Bb4";
-const rpcUrl = "https://sepolia-rollup.arbitrum.io/rpc";
-const chainId = 421614;
+  // 📦 ABI (copied from ABI file you provided)
+  const abi = [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "_lockDuration", "type": "uint256" }],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "_lockDuration", "type": "uint256" }],
+      "name": "claim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
+      "name": "getUserVaultDurations",
+      "outputs": [{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "user", "type": "address" },
+        { "internalType": "uint256", "name": "lockDuration", "type": "uint256" }
+      ],
+      "name": "getVault",
+      "outputs": [
+        { "internalType": "uint256", "name": "totalAmount", "type": "uint256" },
+        { "internalType": "uint256", "name": "unlockTime", "type": "uint256" },
+        { "internalType": "uint256", "name": "depositCount", "type": "uint256" },
+        { "internalType": "bool", "name": "claimed", "type": "bool" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "user", "type": "address" },
+        { "internalType": "uint256", "name": "lockDuration", "type": "uint256" }
+      ],
+      "name": "getVaultRemainingTime",
+      "outputs": [{ "internalType": "uint256", "name": "secondsRemaining", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "user", "type": "address" },
+        { "internalType": "uint256", "name": "lockDuration", "type": "uint256" }
+      ],
+      "name": "getDepositHistory",
+      "outputs": [{
+        "components": [
+          { "internalType": "uint256", "name": "amount", "type": "uint256" },
+          { "internalType": "uint256", "name": "timestamp", "type": "uint256" }
+        ],
+        "internalType": "struct TimeLockVault.Deposit[]",
+        "name": "",
+        "type": "tuple[]"
+      }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" }
+      ],
+      "name": "hasUsedDuration",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "name": "isValidDuration",
+      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "internalType": "address", "name": "", "type": "address" },
+        { "internalType": "uint256", "name": "", "type": "uint256" }
+      ],
+      "name": "userVaults",
+      "outputs": [
+        { "internalType": "uint256", "name": "totalAmount", "type": "uint256" },
+        { "internalType": "uint256", "name": "unlockTime", "type": "uint256" },
+        { "internalType": "uint256", "name": "depositCount", "type": "uint256" },
+        { "internalType": "bool", "name": "claimed", "type": "bool" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
 
-// === ABI ===
-const abi = [
-  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
-  { "inputs": [{"internalType": "uint256", "name": "_lockDuration", "type": "uint256"}], "name": "deposit", "outputs": [], "stateMutability": "payable", "type": "function" },
-  { "inputs": [{"internalType": "uint256", "name": "_lockDuration", "type": "uint256"}], "name": "claim", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
-  { "inputs": [{"internalType": "address", "name": "user", "type": "address"}], "name": "getUserVaultDurations", "outputs": [{"internalType": "uint256[]", "name": "", "type": "uint256[]"}], "stateMutability": "view", "type": "function" },
-  { "inputs": [{"internalType": "address", "name": "user", "type": "address"}, {"internalType": "uint256", "name": "lockDuration", "type": "uint256"}], "name": "getVault", "outputs": [
-    {"internalType": "uint256", "name": "totalAmount", "type": "uint256"},
-    {"internalType": "uint256", "name": "unlockTime", "type": "uint256"},
-    {"internalType": "uint256", "name": "depositCount", "type": "uint256"},
-    {"internalType": "bool", "name": "claimed", "type": "bool"}
-  ], "stateMutability": "view", "type": "function" },
-  { "inputs": [{"internalType": "address", "name": "user", "type": "address"}, {"internalType": "uint256", "name": "lockDuration", "type": "uint256"}], "name": "getVaultRemainingTime", "outputs": [{"internalType": "uint256", "name": "secondsRemaining", "type": "uint256"}], "stateMutability": "view", "type": "function" },
-  { "inputs": [{"internalType": "address", "name": "user", "type": "address"}, {"internalType": "uint256", "name": "lockDuration", "type": "uint256"}], "name": "getDepositHistory", "outputs": [{"components": [
-    {"internalType": "uint256", "name": "amount", "type": "uint256"},
-    {"internalType": "uint256", "name": "timestamp", "type": "uint256"}
-  ], "internalType": "struct TimeLockVault.Deposit[]", "name": "", "type": "tuple[]"}], "stateMutability": "view", "type": "function" }
-];
+  // 🌐 DOM References – All Sections
 
-function showSection(id) {
-  const sections = ["walletConnect", "savingPlan", "savingsPlanForm", "depositForm", "VaultPage", "dashboard"];
-  sections.forEach(tag => {
-    const el = document.querySelector(`#${tag}`);
-    if (el) el.style.display = tag === id ? "block" : "none";
-  });
+  // Wallet Connect
+  const connectBtn = document.querySelector(".connect-wallet-btn");
+  const walletConnectSection = document.querySelector("walletConnect");
+
+  // Dashboard
+  const dashboardSection = document.getElementById("dashboard");
+  const totalBalance = document.getElementById("totalBalance");
+  const userWallet = document.getElementById("userWallet");
+  const vaultScroll = document.getElementById("vaultScroll");
+  const scrollArrow = document.getElementById("scrollArrow");
+  const dashboardHistoryBody = document.getElementById("dashboardHistoryBody");
+  const viewAllHistoryBtn = document.getElementById("viewAllHistoryBtn");
+  const startNewSavingsBtn = document.getElementById("startNewSavingsBtn");
+
+  // Vault Page
+  const vaultPage = document.getElementById("VaultPage");
+  const vaultBackBtn = document.getElementById("vaultBackBtn");
+  const vaultNewSavingsBtn = document.getElementById("vaultNewSavingsBtn");
+  const vaultTitle = document.getElementById("vaultTitle");
+  const vaultBalance = document.getElementById("vaultBalance");
+  const progressFill = document.getElementById("progressFill");
+  const progressPercent = document.getElementById("progressPercent");
+  const vaultCountdown = document.getElementById("vaultCountdown");
+  const topUpBtn = document.getElementById("topUpBtn");
+  const withdrawBtn = document.getElementById("withdrawBtn");
+  const startDate = document.getElementById("startDate");
+  const withdrawalDate = document.getElementById("withdrawalDate");
+  const frequencyText = document.getElementById("frequencyText");
+  const savingsTarget = document.getElementById("savingsTarget");
+  const vaultHistoryBody = document.getElementById("vaultHistoryBody");
+  const vaultHistoryViewAll = document.getElementById("vaultHistoryViewAll");
+
+  // Savings Plan
+  const savingPlanSection = document.getElementById("savingPlan");
+  const planBackBtn = document.getElementById("planBackBtn");
+  const planCardContainer = document.getElementById("planCardContainer");
+  const planButtons = document.querySelectorAll(".plan-btn");
+
+  // Savings Form
+  const savingsPlanForm = document.getElementById("savingsPlanForm");
+  const formBackBtn = document.getElementById("formBackBtn");
+  const planForm = document.getElementById("planForm");
+  const targetAmount = document.getElementById("targetAmount");
+  const savingFrequency = document.getElementById("savingFrequency");
+  const lockupPeriod = document.getElementById("lockupPeriod");
+  const initialAmount = document.getElementById("initialAmount");
+  const startSavingBtn = document.getElementById("startSavingBtn");
+
+  // Deposit Form
+  const depositFormSection = document.getElementById("depositForm");
+  const depositBackBtn = document.getElementById("depositBackBtn");
+  const depositVaultTitle = document.getElementById("depositVaultTitle");
+  const depositFormActual = document.getElementById("depositFormActual");
+  const depositAmountInput = document.getElementById("depositAmountInput");
+  const depositBtn = document.getElementById("depositBtn");
+
+  // 🔔 Optional: Status Toast (created dynamically if missing)
+});
+
+
+
+// Wallet Connection section
+
+// ✅ Toast popup message for status
+function showStatus(message, duration = 4000) {
+  let statusBox = document.getElementById("statusMessage");
+  if (!statusBox) {
+    statusBox = document.createElement("div");
+    statusBox.id = "statusMessage";
+    statusBox.style.position = "fixed";
+    statusBox.style.top = "20px";
+    statusBox.style.right = "20px";
+    statusBox.style.background = "#1a1a1a";
+    statusBox.style.color = "#fff";
+    statusBox.style.padding = "10px 18px";
+    statusBox.style.borderRadius = "8px";
+    statusBox.style.zIndex = "9999";
+    statusBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
+    document.body.appendChild(statusBox);
+  }
+
+  statusBox.textContent = message;
+  statusBox.style.display = "block";
+  setTimeout(() => {
+    statusBox.style.display = "none";
+  }, duration);
 }
 
-function formatEth(wei) {
-  return parseFloat(ethers.utils.formatEther(wei)).toFixed(4);
-}
-
-function formatCountdown(seconds) {
-  const d = Math.floor(seconds / 86400);
-  const h = Math.floor((seconds % 86400) / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  return `${d}d ${h}h ${m}m ${s}s`;
-}
-
-async function initAppFlow() {
-  showSection("savingPlan");
-}
-
-document.querySelector(".connect-wallet-btn")?.addEventListener("click", async () => {
+// ✅ Wallet Connect Button Click Handler
+connectBtn.addEventListener("click", async () => {
   try {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    const network = await provider.getNetwork();
-
-    if (network.chainId !== chainId) {
-      await window.ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x" + chainId.toString(16) }]
-      });
+    if (!window.ethereum) {
+      alert("Please use a browser with MetaMask or another Web3 wallet.");
+      return;
     }
 
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    const currentNetwork = await provider.getNetwork();
+
+    // 🔁 If on wrong network, try to switch
+    if (currentNetwork.chainId !== chainId) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: "0x" + chainId.toString(16) }]
+        });
+        showStatus("✅ Switched to Arbitrum Sepolia. Please click Connect again.");
+        return;
+      } catch (err) {
+        if (err.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: "0x" + chainId.toString(16),
+              chainName: "Arbitrum Sepolia",
+              rpcUrls: [rpcUrl],
+              nativeCurrency: { name: "ETH", symbol: "ETH", decimals: 18 },
+              blockExplorerUrls: ["https://sepolia.arbiscan.io"]
+            }]
+          });
+          showStatus("✅ Network added. Please click Connect again.");
+          return;
+        } else {
+          alert("Please switch to the Arbitrum Sepolia network.");
+          return;
+        }
+      }
+    }
+
+    // 🔐 Connect wallet
+    await provider.send("eth_requestAccounts", []);
     signer = provider.getSigner();
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
 
-    await initAppFlow();
+    // Show address in dashboard header
+    userWallet.textContent = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
+
+    // Hide wallet connect screen
+    walletConnectSection.style.display = "none";
+
+    // 🔍 Check for existing vaults
+    const userDurations = await contract.getUserVaultDurations(userAddress);
+    if (userDurations.length > 0) {
+      // ✅ User has vaults – go to dashboard
+      dashboardSection.style.display = "block";
+      showStatus("✅ Welcome back! Vault(s) found.");
+    } else {
+      // ❌ No vault yet – go to savings plan flow
+      savingPlanSection.style.display = "block";
+      showStatus("🚀 Start your first crypto savings plan.");
+    }
+
   } catch (err) {
-    console.error("❌ Wallet connection error:", err);
-    alert(`Wallet connection failed: ${err.message || err}`);
+    console.error("❌ Wallet connection failed:", err);
+    showStatus("❌ Wallet connection failed.");
   }
 });
-
-document.querySelectorAll(".plan-btn").forEach((btn, i) => {
-  const titles = ["trading-capital", "investment-capital", "normal-savings"];
-  btn.addEventListener("click", () => {
-    localStorage.setItem("selectedPlan", titles[i]);
-    showSection("savingsPlanForm");
-  });
-});
-
-document.getElementById("startSavingBtn")?.addEventListener("click", async () => {
-  const amount = document.getElementById("initialAmount").value;
-  const durationDays = document.getElementById("lockupPeriod").value;
-  const duration = parseInt(durationDays) * 24 * 60 * 60;
-
-  if (!amount || !duration) return alert("Fill all fields correctly");
-
-  try {
-    const tx = await contract.deposit(duration, {
-      value: ethers.utils.parseEther(amount)
-    });
-    await tx.wait();
-
-    const vaultName = localStorage.getItem("selectedPlan") || "vault";
-    showSection("VaultPage");
-    await loadVault(vaultName);
-  } catch (err) {
-    console.error(err);
-    alert("Deposit failed");
-  }
-});
-
-async function loadVault(vaultName) {
-  const vaultMap = {
-    "trading-capital": 30 * 24 * 60 * 60,
-    "investment-capital": 90 * 24 * 60 * 60,
-    "normal-savings": 180 * 24 * 60 * 60,
-    "1yr-goal": 365 * 24 * 60 * 60,
-    "6h-test": 6 * 60 * 60
-  };
-  const duration = vaultMap[vaultName];
-  if (!duration) return alert("Invalid vault");
-
-  const vaultTitle = document.getElementById("vaultTitle");
-  const vaultBalance = document.getElementById("vaultBalance");
-  const vaultCountdown = document.getElementById("vaultCountdown");
-  const startDate = document.getElementById("startDate");
-  const withdrawalDate = document.getElementById("withdrawalDate");
-  const vaultHistoryBody = document.getElementById("vaultHistoryBody");
-
-  try {
-    const [vault, secondsRemaining, history] = await Promise.all([
-      contract.getVault(userAddress, duration),
-      contract.getVaultRemainingTime(userAddress, duration),
-      contract.getDepositHistory(userAddress, duration)
-    ]);
-
-    vaultTitle.textContent = vaultName.replace(/-/g, ' ') + " Savings";
-    vaultBalance.textContent = formatEth(vault.totalAmount) + " ETH";
-    vaultCountdown.textContent = secondsRemaining > 0 ? formatCountdown(secondsRemaining) : "Unlocked!";
-    withdrawalDate.textContent = vault.unlockTime ? new Date(vault.unlockTime * 1000).toLocaleString() : "-";
-    startDate.textContent = history.length > 0 ? new Date(history[0].timestamp * 1000).toLocaleString() : "-";
-    vaultHistoryBody.innerHTML = history.map(h => `
-      <tr>
-        <td>Deposit</td>
-        <td>${formatEth(h.amount)} ETH</td>
-        <td>${new Date(h.timestamp * 1000).toLocaleString()}</td>
-        <td>-</td>
-      </tr>
-    `).join("");
-  } catch (err) {
-    console.error("Failed to load vault:", err);
-  }
-}
