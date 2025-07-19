@@ -825,7 +825,7 @@ p {
       /* === Savings Plan From Page === */
 
 
-      .savings-form {
+      .savings-form-wrapper {
   padding: 2rem 1rem;
   max-width: 500px;
   margin: 0 auto;
