@@ -257,6 +257,10 @@ document.addEventListener("DOMContentLoaded", () => {
 // ✅ Flow 2 — Plan → Form
 planButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
+
+    console.log("✅ plan-btn clicked");
+    console.log("📦 savingsPlanForm:", savingsPlanForm);
+
     savingPlanSection.style.display = "none";
     savingsPlanForm.style.display = "block";
   });
