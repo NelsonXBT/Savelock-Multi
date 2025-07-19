@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 🔗 Contract Configuration
-  const contractAddress = "0xF020f362CDe86004d94C832596415E082A77e203";
+  const contractAddress = "0x318cAD266a35692f49d0e7B4E31C799c2cfc9Bb4";
   const rpcUrl = "https://sepolia-rollup.arbitrum.io/rpc";
   const chainId = 421614;
 
