@@ -62,15 +62,15 @@ document.querySelector(".connect-wallet-btn")?.addEventListener("click", async (
       });
     }
 
-    await provider.send("eth_requestAccounts", []);
+    await window.ethereum.request({ method: "eth_requestAccounts" });
     signer = provider.getSigner();
     userAddress = await signer.getAddress();
     contract = new ethers.Contract(contractAddress, abi, signer);
 
     await initAppFlow();
   } catch (err) {
-    alert("Wallet connection failed");
-    console.error(err);
+    console.error("❌ Wallet connection error:", err);
+    alert(`Wallet connection failed: ${err.message || err}`);
   }
 });
 
