@@ -8,9 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let provider, signer, contract, userAddress;
   let activeVaultDuration = null;
 
-  // 📦 ABI (copied from ABI file you provided)
-  const abi = [
-    {
+  // 📦 ABI
+  const abi = [ {
       "inputs": [],
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -110,16 +109,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
       "stateMutability": "view",
       "type": "function"
-    }
-  ];
+    } ];
 
   // 🌐 DOM References – All Sections
 
-  // Wallet Connect
   const connectBtn = document.querySelector(".connect-wallet-btn");
-  const walletConnectSection = document.querySelector("walletConnect");
+  const walletConnectSection = document.getElementById("walletConnect");
 
-  // Dashboard
   const dashboardSection = document.getElementById("dashboard");
   const totalBalance = document.getElementById("totalBalance");
   const userWallet = document.getElementById("userWallet");
@@ -129,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const viewAllHistoryBtn = document.getElementById("viewAllHistoryBtn");
   const startNewSavingsBtn = document.getElementById("startNewSavingsBtn");
 
-  // Vault Page
   const vaultPage = document.getElementById("VaultPage");
   const vaultBackBtn = document.getElementById("vaultBackBtn");
   const vaultNewSavingsBtn = document.getElementById("vaultNewSavingsBtn");
@@ -147,13 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const vaultHistoryBody = document.getElementById("vaultHistoryBody");
   const vaultHistoryViewAll = document.getElementById("vaultHistoryViewAll");
 
-  // Savings Plan
   const savingPlanSection = document.getElementById("savingPlan");
   const planBackBtn = document.getElementById("planBackBtn");
   const planCardContainer = document.getElementById("planCardContainer");
   const planButtons = document.querySelectorAll(".plan-btn");
 
-  // Savings Form
   const savingsPlanForm = document.getElementById("savingsPlanForm");
   const formBackBtn = document.getElementById("formBackBtn");
   const planForm = document.getElementById("planForm");
@@ -163,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const initialAmount = document.getElementById("initialAmount");
   const startSavingBtn = document.getElementById("startSavingBtn");
 
-  // Deposit Form
   const depositFormSection = document.getElementById("depositForm");
   const depositBackBtn = document.getElementById("depositBackBtn");
   const depositVaultTitle = document.getElementById("depositVaultTitle");
@@ -171,45 +163,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const depositAmountInput = document.getElementById("depositAmountInput");
   const depositBtn = document.getElementById("depositBtn");
 
-  // 🔔 Optional: Status Toast (created dynamically if missing)
-});
+  // ✅ Toast popup for UX
+  function showStatus(message, duration = 4000) {
+    let statusBox = document.getElementById("statusMessage");
+    if (!statusBox) {
+      statusBox = document.createElement("div");
+      statusBox.id = "statusMessage";
+      statusBox.style.position = "fixed";
+      statusBox.style.top = "20px";
+      statusBox.style.right = "20px";
+      statusBox.style.background = "#1a1a1a";
+      statusBox.style.color = "#fff";
+      statusBox.style.padding = "10px 18px";
+      statusBox.style.borderRadius = "8px";
+      statusBox.style.zIndex = "9999";
+      statusBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
+      document.body.appendChild(statusBox);
+    }
 
-
-
-// Wallet Connection section
-
-// ✅ Toast popup message for status
-function showStatus(message, duration = 4000) {
-  let statusBox = document.getElementById("statusMessage");
-  if (!statusBox) {
-    statusBox = document.createElement("div");
-    statusBox.id = "statusMessage";
-    statusBox.style.position = "fixed";
-    statusBox.style.top = "20px";
-    statusBox.style.right = "20px";
-    statusBox.style.background = "#1a1a1a";
-    statusBox.style.color = "#fff";
-    statusBox.style.padding = "10px 18px";
-    statusBox.style.borderRadius = "8px";
-    statusBox.style.zIndex = "9999";
-    statusBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.25)";
-    document.body.appendChild(statusBox);
+    statusBox.textContent = message;
+    statusBox.style.display = "block";
+    setTimeout(() => {
+      statusBox.style.display = "none";
+    }, duration);
   }
 
-  statusBox.textContent = message;
-  statusBox.style.display = "block";
-  setTimeout(() => {
-    statusBox.style.display = "none";
-  }, duration);
-}
-
-// ✅ Wallet Connect Button Click Handler
-window.addEventListener("load", () => {
-  const connectBtn = document.querySelector(".connect-wallet-btn");
-  const walletConnectSection = document.getElementById("walletConnect");
-  const dashboardSection = document.getElementById("dashboard");
-  const savingPlanSection = document.getElementById("savingPlan");
-
+  // ✅ Wallet Connect + Vault Check
   connectBtn.addEventListener("click", async () => {
     try {
       if (!window.ethereum) {
