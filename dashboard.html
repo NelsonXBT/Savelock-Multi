@@ -203,51 +203,51 @@
 
       <!-- Savings Plan Form -->
       <div id="savingsPlanForm" style="display: none;">
-      <div class="savings-form-wrapper">
-    <div class="savings-header">
-      <button class="back-btn" id="formBackBtn">← Back</button>
-      <h1 class="form-title">Fill out your savings details</h1>
+     <div class="savings-form-wrapper">
+  <div class="savings-header">
+    <button class="back-btn" id="formBackBtn">← Back</button>
+    <h1 class="form-title">Fill out your savings details</h1>
+  </div>
+
+  <form class="savings-form" id="planForm">
+    <div class="form-group">
+      <label for="targetAmount">Target Amount</label>
+      <input type="text" id="targetAmount" placeholder="e.g. 1 ETH"/>
     </div>
 
-    <form class="savings-form" id="planForm">
-  <div class="form-group">
-    <label for="targetAmount">Target Amount</label>
-    <input type="text" id="targetAmount" placeholder="e.g. 1 ETH"/>
-  </div>
+    <div class="form-group">
+      <label for="savingFrequency">Saving Frequency</label>
+      <select id="savingFrequency">
+        <option value="">Select</option>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
 
-  <div class="form-group">
-    <label for="savingFrequency">Saving Frequency</label>
-    <select id="savingFrequency">
-      <option value="">Select</option>
-      <option value="daily">Daily</option>
-      <option value="weekly">Weekly</option>
-      <option value="monthly">Monthly</option>
-    </select>
-  </div>
+    <div class="form-group">
+      <label for="lockupPeriod">Lockup Period</label>
+      <select id="lockupPeriod">
+        <option value="">Select</option>
+        <option value="21600">6 Hours</option>
+        <option value="2592000">30 Days</option>
+        <option value="7776000">90 Days</option>
+        <option value="15552000">180 Days</option>
+        <option value="31536000">1 Year</option>
+      </select>
+    </div>
 
-  <div class="form-group">
-    <label for="lockupPeriod">Lockup Period</label>
-    <select id="lockupPeriod">
-      <option value="">Select</option>
-      <option value="21600">6 Hours</option>
-      <option value="2592000">30 Days</option>
-      <option value="7776000">90 Days</option>
-      <option value="15552000">180 Days</option>
-      <option value="31536000">1 Year</option>
-    </select>
-  </div>
+    <div class="form-group">
+      <label for="initialAmount">Start Amount</label>
+      <input type="text" id="initialAmount" placeholder="e.g. 0.1 ETH"/>
+    </div>
 
-  <div class="form-group">
-    <label for="initialAmount">Start Amount</label>
-    <input type="text" id="initialAmount" placeholder="e.g. 0.1 ETH"/>
-  </div>
+    <div class="form-submit">
+      <button type="submit" class="start-saving-btn" id="startSavingBtn">Start Saving</button>
+    </div>
+  </form>
+</div>
 
-  <div class="form-submit">
-    <button type="submit" class="start-saving-btn" id="startSavingBtn">Start Saving</button>
-  </div>
-</form>
-
-  </div>
 </div>
 
 
