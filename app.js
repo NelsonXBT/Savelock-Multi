@@ -236,7 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
       userWallet.textContent = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
       walletConnectSection.style.display = "none";
 
-      const userDurations = await contract.getUserVaultDurations(userAddress);
+      const readContract = new ethers.Contract(contractAddress, abi, provider);
+      const userDurations = await readContract.getUserVaultDurations(userAddress);
+
       if (userDurations.length > 0) {
         dashboardSection.style.display = "block";
         showStatus("✅ Welcome back! Vault(s) found.");
