@@ -1,0 +1,471 @@
+ <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-D.css" />
+    <link rel="icon" href="./img/savelock-favicon.png">
+    <title>Savelock: Crypto Savings App</title>
+</head>
+<body>
+<div class="page-container">
+ <main class="wrapper">
+        <header>
+            <div class="navbar">
+                <div class="logo">
+                <a href="index.html"><img src="./img/savelock-logo.png" alt="CryptoTracker logo" /></a>
+                <a href="index.html"><h1>Savelock</h1></a>
+                </div>
+            </div>
+        </header>
+
+
+            <!-- === Main Dashboard Control Tag === -->
+             <dashboard style="display: none;">
+
+            <!-- === Total Balance card section === -->
+        <section class="dashboard-hero with-candles">
+        <div class="hero-wrapper">
+        <section class="dashboard-hero">
+            <!-- LEFT TEXT BLOCK -->
+            <div class="hero-text">
+                <h1>Save in Web3</h1>
+                <p>Lock your funds and grow your savings with secure, smart contract-powered vaults designed for crypto users.</p>
+            </div>
+            
+            <!-- RIGHT BOX -->
+            <div class="hero-box">
+            <h3>Welcome Back</h3>
+            <div class="hero-total">My Total Saving:</div>
+            <div class="hero-balance">1.5 ETH</div>
+            <img src="./img/eth-log.svg" alt="ETH" class="eth-icon" />
+            <div class="hero-wallet">0xbC062xxxxx060</div>
+            </div>
+            </section>
+            </div>
+            </section>
+            
+
+
+                <!-- === My Savings Card Sections === -->
+
+                <section class="vaults-section">
+                <div class="savings-header">
+                <button class="start-new-btn">Start New Savings</button>
+                <h2 class="savings-title">My Savings</h2>
+                </div>
+                <div class="vaults-wrapper">
+                    <div class="vaults-scroll" id="vaultScroll">
+                    <!-- Vault Card Example -->
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Trading Capital Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Investment Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Web3 Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Weding Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Business Capital Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                    <div class="vault-card">
+                        <div class="vault-amount">0.1 ETH</div>
+                        <div class="vault-purpose">Medical Savings</div>
+                        <div class="vault-timer">29:16:40:10</div>
+                        <button class="vault-view">View</button>
+                    </div>
+                   
+                    <!-- Repeat cards -->
+                    </div>
+                    <button class="scroll-arrow" id="scrollArrow">→</button>
+                </div>
+                </section>
+
+
+
+                <!-- === History Sections === -->
+
+                <section class="history-section">
+                <h2>Transaction History</h2>
+
+                <div class="history-table-container">
+                    <table class="history-table">
+                    <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Tx Hash</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic entries will populate here -->
+                        <tr class="history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                         <tr class="history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                        <!-- ...more rows -->
+                    </tbody>
+                    </table>
+                </div>
+
+                <button class="history-view-btn">View All</button>
+                </section>
+                </dashboard>
+
+
+                <!-- Savings (Vault) Page section -->
+                <VaultPage style="display: none;">
+
+                <div class="vault-container">
+                <section class="vault-header">
+                <div class="vault-controls-row">
+                    <button class="back-btn">&larr; Back</button>
+                    <div class="vault-header-spacer"></div>
+                    <button class="new-savings-btn">Start New Savings</button>
+                </div>
+
+                <h2 class="vault-title">Trading Capital Savings</h2>
+                </section>
+
+
+                <section class="vault-balance-card">
+                <p class="balance-label">My Total Savings:</p>
+                <div class="balance-amount">1.5 ETH</div>
+                
+                <div class="progress-wrapper">
+                    <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <span class="progress-percent">0%</span>
+                </div>
+                </section>
+                </div>
+
+                <div class="countdown-timer">
+                <h3>Unlocks:</h3><span id="vaultCountdown">Loading timer...</span>
+                </div>
+
+
+                <section class="vault-action-buttons">
+                <button class="top-up-btn">Top Up</button>
+                <button class="withdraw-btn">Withdraw</button>
+                </section>
+
+                <div class="vault-info-grid">
+                <div class="vault-info-box">
+                    <span class="label">Start Date:</span>
+                    <span class="value">7th July 2025</span>
+                </div>
+                <div class="vault-info-box">
+                    <span class="label">Withdrawal Date:</span>
+                    <span class="value">31st Dec 2025</span>
+                </div>
+                <div class="vault-info-box">
+                    <span class="label">Frequency:</span>
+                    <span class="value">Every weekly</span>
+                </div>
+                <div class="vault-info-box">
+                    <span class="label">Saving Target:</span>
+                    <span class="value">1.00 ETH</span>
+                </div>
+                </div>
+
+                
+
+                <section class="vault-history-section">
+                <h2>Transaction History </h2>
+
+                <div class="vault-history-table-container">
+                    <table class="vault-history-table">
+                    <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Tx Hash</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example rows -->
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Withdraw</td>
+                        <td>0.3 ETH</td>
+                        <td>2025-07-16</td>
+                        <td><a href="#">0x5678...efgh</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <tr class="vault-history-row">
+                        <td>Deposit</td>
+                        <td>0.5 ETH</td>
+                        <td>2025-07-17</td>
+                        <td><a href="#">0x1234...abcd</a></td>
+                        </tr>
+                        <!-- More rows from JS -->
+                    </tbody>
+                    </table>
+                </div>
+
+                <button class="vault-history-view-btn">View All</button>
+                </section>
+                </VaultPage>
+
+
+
+                <!-- === Savings Plan Selection Page === -->
+
+                <savingPlan style="display:none ;">
+                <section class="savings-hero">
+                <div class="savings-back-wrapper">
+                    <button class="back-btn">← Back</button>
+                </div>
+
+                <h1 class="savings-title">Start Your Crypto Savings Today</h1>
+                <p class="savings-subtext">Big dreams start with small steps."</p>
+                <p class="savings-description">
+                    Whether you're saving for your first trading capital, a new business, or just a more secure future — every deposit counts.
+                </p>
+                </section>
+
+
+                <section class="savings-plan-section">
+                <h2 class="plan-subheading">Pick Your Savings Plan</h2>
+
+                <div class="plan-card-container">
+                    <!-- Plan Card 1 -->
+                    <div class="plan-card">
+                    <img src="./img/trading-icon.png" alt="Chart Icon" class="plan-icon" />
+                    <h3 class="plan-title gold-text">Trading Capital Savings</h3>
+                    <p class="plan-description">
+                        The best way to get your trading capital is through gradual savings
+                    </p>
+                    <button class="plan-btn">Start Now</button>
+                    </div>
+
+                    <!-- Plan Card 2 -->
+                    <div class="plan-card">
+                    <img src="./img/investment-icon.png" alt="Invest Icon" class="plan-icon" />
+                    <h3 class="plan-title gold-text">Investment Savings</h3>
+                    <p class="plan-description">
+                        Start saving for your investment capital and your future self will thank you later
+                    </p>
+                    <button class="plan-btn">Start Now</button>
+                    </div>
+
+                    <!-- Plan Card 3 -->
+                    <div class="plan-card">
+                    <img src="./img/savings-icon.png" alt="Coins Icon" class="plan-icon" />
+                    <h3 class="plan-title gold-text">Normal Savings</h3>
+                    <p class="plan-description">
+                        Saving helps you build an emergency fund and investment capital
+                    </p>
+                    <button class="plan-btn">Start Now</button>
+                    </div>
+                </div>
+                </section>
+                </savingPlan>
+
+
+                <!-- === Savings Plan From Page === -->
+                 <savingsPlanForm style="display: ;">
+
+                <section class="savings-form">
+                <div class="savings-header">
+                    <button class="back-btn">← Back</button>
+                    <h1 class="form-title">Fill out your savings details</h1>
+                </div>
+                </section>
+
+
+                <form class="savings-form">
+                <div class="form-group">
+                    <label for="targetAmount">What is your total target amount?</label>
+                    <input type="text" id="targetAmount" placeholder="Enter Amount e.g. 1 ETH" />
+                </div>
+
+                <div class="form-group">
+                    <label for="savingFrequency">How will you prefer to save?</label>
+                    <select id="savingFrequency">
+                    <option value="">Select frequency</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lockupPeriod">Choose Lockup Period</label>
+                    <select id="lockupPeriod">
+                    <option value="">Select lock period</option>
+                    <option value="30">30 days</option>
+                    <option value="90">90 days</option>
+                    <option value="180">180 days</option>
+                    <option value="365">1 year</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="initialAmount">Enter your start amount</label>
+                    <input type="text" id="initialAmount" placeholder="Enter Amount e.g. 0.1 ETH" />
+                </div>
+                </form>
+
+                <div class="form-submit">
+                <button type="submit" class="start-saving-btn">Start Saving</button>
+                </div>
+                </savingsPlanForm>
+
+
+                <!-- === Deposit Form Section === -->
+
+                <depositForm  style="display: none;">
+
+                    <div class="deposit-container">
+                    <div class="deposit-header">
+                        <button class="back-btn">← Back</button>
+                        <h2 class="vault-title">Trading Capital Savings</h2>
+                    </div>
+
+                    <form class="deposit-form">
+                        <input type="number" placeholder="Ether deposit amount" class="deposit-input" />
+                        <button type="submit" class="deposit-btn">Top up</button>
+                    </form>
+                    </div>
+                </depositForm>
+
+
+
+
+
+
+    </main>
+        <footer>
+            <div><p>© Savelock 2025 | All rights reserved | Built by <a href="https://x.com/nelson_xbt" target="_blank">NelsonXBT</a></p></div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

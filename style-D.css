@@ -1,4 +1,8 @@
 /* =============== GLOBAL STYLES =============== */
+
+
+
+
 * {
   box-sizing: border-box;
 }
@@ -66,6 +70,58 @@ p {
   font-size: 1.8rem;
   margin: 0;
 }
+
+  /* =============== Wallet Connect Section =============== */
+
+/* === WALLET CONNECT PAGE === */
+.wallet-connect-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  background-color: #0d0d0d;
+}
+
+.wallet-connect-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #d4a855;
+  margin-bottom: 1rem;
+}
+
+.wallet-connect-subtext {
+  font-size: 1.1rem;
+  color: #ccc;
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.connect-wallet-btn {
+  background-color: #007f36;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.8rem 2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.connect-wallet-btn:hover {
+  background-color: #00994a;
+}
+
+
+
+
+
+
+
 
 /* =============== BLOCK 1 HERO SECTION =============== */
 .hero-wrapper {
@@ -190,11 +246,49 @@ p {
   text-align: left;
 }
 
-.vaults-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+ .vaults-section h2 {
+  font-size: 1.6rem;
+  margin-bottom: -0.5rem;
   padding-left: 1rem;
+  color: #ccc;
+}  
+.savings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: nowrap;
 }
+
+ /* .savings-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+}  */
+
+.start-new-btn {
+  background: linear-gradient(135deg,  #1f1f1f, #2a2a2a);
+  color: #00c372;
+  padding: 1rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+
+
+.start-new-btn:hover {
+  opacity: 0.9;
+}
+
+
 
 .vaults-wrapper {
   position: relative;
@@ -378,14 +472,24 @@ p {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
+  margin-top: 5rem;
 }
 
 .vault-header {
+  max-width: 800px;
+  margin: 2rem auto 1.5rem;
+  padding: 0 1rem;
+}
+
+.vault-controls-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin: 2rem 0 1.5rem;
-  padding-left: 1rem;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+}
+
+.vault-header-spacer {
+  flex: 1;
 }
 
 .back-btn {
@@ -399,8 +503,24 @@ p {
   cursor: pointer;
 }
 
+.new-savings-btn {
+  background-image: linear-gradient(150deg, #007A33, #00cc66);
+  color: white;
+  font-weight: 700;
+  padding: 0.7rem 1.2rem;
+  font-size: 1.2rem;
+  border: 0.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.new-savings-btn:hover {
+  background-color: #00994a;
+}
+
 .vault-title {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: white;
   margin: 0;
@@ -457,6 +577,18 @@ p {
   font-weight: 600;
   font-size: 0.9rem;
 }
+
+.countdown-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #bbb;
+  margin-top: 0.5rem;
+}
+
 
 .vault-action-buttons {
   display: flex;
@@ -933,7 +1065,20 @@ footer a {
   margin: 0;
 }
 
+ .wallet-connect-title {
+    font-size: 3rem;
+  }
 
+  .wallet-connect-subtext {
+    font-size: 1.3rem;
+  }
+
+  .connect-wallet-btn {
+    font-size: 1.3rem;
+    padding: 1rem 2.5rem;
+  }
+
+  
   .wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -1036,6 +1181,21 @@ footer a {
   font-size: 2rem;
   }
 
+    .savings-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .start-new-btn {
+  font-size: 1.5rem;
+}
+
+
+  .start-new-btn {
+    align-self: flex-end;
+  }
+
 
 .history-section h2 {
     font-size: 2rem;
@@ -1068,6 +1228,10 @@ footer {
     padding: 0.5rem 1.2rem;
   }
 
+    .new-savings-btn {
+    font-size: 1.5rem;
+    padding: 1.2rem 1.4rem;
+  }
 
 .vault-balance-card {
     max-width: 600px;
@@ -1082,6 +1246,11 @@ footer {
 
   .progress-bar {
     max-width: 300px;
+  }
+
+    .countdown-timer {
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
 
 
