@@ -26,7 +26,6 @@ const abi = [
   ], "internalType": "struct TimeLockVault.Deposit[]", "name": "", "type": "tuple[]"}], "stateMutability": "view", "type": "function" }
 ];
 
-// === Section Toggle ===
 function showSection(id) {
   const sections = ["walletConnect", "savingPlan", "savingsPlanForm", "depositForm", "VaultPage", "dashboard"];
   sections.forEach(tag => {
@@ -35,12 +34,10 @@ function showSection(id) {
   });
 }
 
-// === Format ETH ===
 function formatEth(wei) {
   return parseFloat(ethers.utils.formatEther(wei)).toFixed(4);
 }
 
-// === Countdown Formatter ===
 function formatCountdown(seconds) {
   const d = Math.floor(seconds / 86400);
   const h = Math.floor((seconds % 86400) / 3600);
@@ -49,7 +46,6 @@ function formatCountdown(seconds) {
   return `${d}d ${h}h ${m}m ${s}s`;
 }
 
-// === DOM Ready ===
 window.addEventListener("DOMContentLoaded", async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const vaultParam = urlParams.get("vault");
@@ -57,26 +53,37 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   if (!window.ethereum) return showSection("walletConnect");
 
-  provider = new ethers.providers.Web3Provider(window.ethereum);
-  const accounts = await provider.listAccounts();
-  if (!accounts.length) return showSection("walletConnect");
+  try {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    const network = await provider.getNetwork();
 
-  signer = provider.getSigner();
-  userAddress = await signer.getAddress();
-  contract = new ethers.Contract(contractAddress, abi, signer);
+    if (network.chainId !== chainId) {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x" + chainId.toString(16) }]
+      });
+    }
 
-  if (vaultParam) {
-    showSection("VaultPage");
-    loadVault(vaultParam);
-  } else if (savingParam) {
-    showSection("savingPlan");
-  } else {
-    showSection("dashboard");
-    loadAllVaults();
+    await provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+    userAddress = await signer.getAddress();
+    contract = new ethers.Contract(contractAddress, abi, signer);
+
+    if (vaultParam) {
+      showSection("VaultPage");
+      loadVault(vaultParam);
+    } else if (savingParam) {
+      showSection("savingPlan");
+    } else {
+      showSection("dashboard");
+      loadAllVaults();
+    }
+  } catch (err) {
+    console.error("Wallet connection failed:", err);
+    showSection("walletConnect");
   }
 });
 
-// === Wallet Connect Button ===
 document.querySelector(".connect-wallet-btn")?.addEventListener("click", async () => {
   try {
     await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -86,7 +93,6 @@ document.querySelector(".connect-wallet-btn")?.addEventListener("click", async (
   }
 });
 
-// === Plan Card Selection ===
 document.querySelectorAll(".plan-btn").forEach((btn, i) => {
   const titles = ["trading-capital", "investment-capital", "normal-savings"];
   btn.addEventListener("click", () => {
@@ -95,7 +101,6 @@ document.querySelectorAll(".plan-btn").forEach((btn, i) => {
   });
 });
 
-// === Start Saving Button ===
 document.getElementById("startSavingBtn")?.addEventListener("click", async () => {
   const amount = document.getElementById("initialAmount").value;
   const durationDays = document.getElementById("lockupPeriod").value;
@@ -117,7 +122,6 @@ document.getElementById("startSavingBtn")?.addEventListener("click", async () =>
   }
 });
 
-// === Load Vault View ===
 async function loadVault(vaultName) {
   const vaultMap = {
     "trading-capital": 30 * 24 * 60 * 60,
@@ -147,7 +151,6 @@ async function loadVault(vaultName) {
     vaultBalance.textContent = formatEth(vault.totalAmount) + " ETH";
     vaultCountdown.textContent = secondsRemaining > 0 ? formatCountdown(secondsRemaining) : "Unlocked!";
     withdrawalDate.textContent = vault.unlockTime ? new Date(vault.unlockTime * 1000).toLocaleString() : "-";
-
     startDate.textContent = history.length > 0 ? new Date(history[0].timestamp * 1000).toLocaleString() : "-";
     vaultHistoryBody.innerHTML = history.map(h => `
       <tr>
@@ -162,7 +165,6 @@ async function loadVault(vaultName) {
   }
 }
 
-// === Load Dashboard Vault Cards ===
 async function loadAllVaults() {
   const vaultScroll = document.getElementById("vaultScroll");
   vaultScroll.innerHTML = "";
@@ -171,7 +173,7 @@ async function loadAllVaults() {
     for (let duration of durations) {
       const vault = await contract.getVault(userAddress, duration);
       const secondsRemaining = await contract.getVaultRemainingTime(userAddress, duration);
-      const name = `${duration / 86400}-day`; // simple label
+      const name = `${duration / 86400}-day`;
       const card = document.createElement("div");
       card.className = "vault-card";
       card.innerHTML = `
