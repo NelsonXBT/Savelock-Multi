@@ -252,4 +252,65 @@ document.addEventListener("DOMContentLoaded", () => {
       showStatus("❌ Wallet connection failed.");
     }
   });
+
+
+// ✅ Flow 2 — Plan → Form
+planButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    savingPlanSection.style.display = "none";
+    savingsPlanForm.style.display = "block";
+  });
+});
+
+startSavingBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const target = parseFloat(targetAmount.value);
+  const frequency = savingFrequency.value;
+  const duration = parseInt(lockupPeriod.value);
+  const firstAmount = parseFloat(initialAmount.value);
+
+  // ✅ Validation
+  if (isNaN(target) || isNaN(firstAmount) || !frequency || duration <= 0) {
+    showStatus("❌ Please complete the form properly.");
+    return;
+  }
+
+  // 💾 Save form data to localStorage
+  const vaultKey = `vault_${duration}`;
+  localStorage.setItem(vaultKey, JSON.stringify({
+    target,
+    frequency,
+    purpose: localStorage.getItem("selectedPurpose") || "General"
+  }));
+
+  try {
+    // 💸 Send deposit transaction
+    const tx = await contract.deposit(duration, {
+      value: ethers.utils.parseEther(firstAmount.toString())
+    });
+
+    showStatus("⏳ Confirming your first deposit...");
+    await tx.wait();
+
+    showStatus("✅ First deposit successful!");
+
+    // 🎯 Set this as the current vault
+    activeVaultDuration = duration;
+
+    // Hide form, show vault page
+    savingsPlanForm.style.display = "none";
+    vaultPage.style.display = "block";
+
+    // (Flow 3 will load full vault data here)
+
+  } catch (err) {
+    console.error("❌ Deposit failed:", err);
+    showStatus("❌ Deposit failed or cancelled.");
+  }
+});
+
+
+
+
 });
